@@ -5,6 +5,8 @@ public class DemoProgram {
 		// TODO Auto-generated method stub
 		int a=5;
 		System.out.println(a);
+		StringBuffer sb=new StringBuffer("java codes");
+		System.out.println(sb);
 	}
 
 }
