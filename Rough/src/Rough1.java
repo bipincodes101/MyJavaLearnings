@@ -1,25 +1,30 @@
-class MyThread extends Thread{
-	public void run() {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
+class Rough1 {
+	public static void main(String[] args) {
+	int []arr= {-1,0,1,2,-1,-4};
+	int [][]result=sum(arr);
+	System.out.println((result));
+	}
+	public static int [][]sum(int []arr){
+		HashMap<Integer,Integer> hm=new HashMap<>();
+		List<Integer[]> result=new ArrayList<>();
 		
-		
-			for(int i=5;i<8;i++) {
-				System.out.println("user-defined thread");
+		for(int i=1;i<arr.length;i++) {
+			
+			int complement=arr[i]+arr[i-1]-0;
+			if(hm.containsKey(complement)) {
+				Integer []prev= {arr[i],arr[i-1],arr[complement]};
+				result.add(prev);
+			}else {
+				hm.put(complement, i);
 			}
-		
-		
-	}
-}
-class Rough1{
-	public static void main(String []args) throws InterruptedException {
-		
-		MyThread mt=new MyThread();
-		Thread t=new Thread(mt);
-		t.start();
-		
-		t.join();
-		t.interrupt();
-		System.out.println("main thrread");
-		
+		  }
+		return result.toArray(new int [result.size()][]);
 		
 	}
 }
+
