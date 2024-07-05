@@ -1,10 +1,13 @@
 package com.bipin.util;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 public class JdbcUtil {
 		//connect with database activity.
 	 private JdbcUtil() {
@@ -22,18 +25,20 @@ public class JdbcUtil {
 	 }
 	 //step: 2-> connect with database .
 	 
-		public static Connection getJdbcConnection() throws SQLException {
-			String url="jdbc:mysql:/employee";
-			String userName="root";
-			String password="bipin@123";
-			Connection connection =DriverManager.getConnection(url,userName,password);
+		public static Connection getJdbcConnection() throws SQLException, IOException {
+		//take the properties file.
+			FileInputStream fis=new FileInputStream("D:\\JavaCodes\\JDBCStandardApp\\application.properties");
+			Properties properties=new Properties();
+			properties.load(fis);
+		 
+			Connection connection =DriverManager.getConnection(properties.getProperty("url"),properties.getProperty("userName"),properties.getProperty("password"));
 			System.out.println("connection object is created");
 			return connection;
-		}
+		} 
 		
 		//last step->
 		//close all the resources.
-		public void cleanUp(Connection connection,Statement statement,ResultSet resultSet) throws SQLException {
+		public static void cleanUp(Connection connection,Statement statement,ResultSet resultSet) throws SQLException {
 			if(connection!=null) {
 				connection.close();
 			}
@@ -44,6 +49,4 @@ public class JdbcUtil {
 				resultSet.close();
 			}
 		}
-	
-
 }

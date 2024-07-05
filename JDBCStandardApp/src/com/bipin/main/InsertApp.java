@@ -23,12 +23,11 @@ class InsertApp {
 				resultSet = statement
 						.executeQuery("select customer_name,contact_name,address,city,postal_code,country from employee_details");
 			if (resultSet != null) {
-				System.out.println("CUSTOMER_NAME\tCONATACT_NAME\tADDRESS\tCITY\tPOSTAL_CODE\tCOUNTRY");
+				System.out.printf("%-15s%-15s%-15s%-15s%-15s%-15s","CUSTOMER_NAME","CONTACT_NAME","ADDRESS","CITY","POSTAL_CODE","COUNTRY");
 				while (resultSet.next()) {
-					System.out.println(resultSet.getString(1) + "\t" + resultSet.getString(2) + "\t"
-							+ resultSet.getString(3) + "\t" + resultSet.getString(4) + "\t" + resultSet.getInt(5) + "\t"
-							+ resultSet.getString(6));
-				}
+					System.out.printf("%-15s%-15s%-15s%-15s%-15d%-15s",resultSet.getString(1), resultSet.getString(2) , resultSet.getString(3) , resultSet.getString(4) , resultSet.getInt(5) , resultSet.getString(6));
+					System.out.println();		
+					}
 			}
 		} catch (SQLException se) {
 			se.printStackTrace();
